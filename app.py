@@ -2,40 +2,82 @@ import streamlit as st
 import pandas as pd
 from io import BytesIO
 
-# Sample data – you can later connect this to your real scraping logic
-data = {
-    'Card Name': ['Charizard V', 'Umbreon V', 'Gengar VMAX', 'Pikachu Full Art'],
-    'Set': ['Brilliant Stars', 'Evolving Skies', 'Fusion Strike', 'Vivid Voltage'],
-    'Raw Price': [22.4, 17.8, 25.0, 10.5],
-    'PSA 10 Price': [165.0, 145.0, 130.0, 95.0]
-}
+# Load and clean CSV
+df = pd.read_csv("pricecharting_scrape_2025-04-21.csv")
+df.columns = [col.strip() for col in df.columns]
+df['Set Name'] = df['Set Name'].str.replace("PRICES FOR POKEMON ", "", case=False)
 
-df = pd.DataFrame(data)
-df['Grading Fee'] = 20.0
-df['Total Cost'] = df['Raw Price'] + df['Grading Fee']
+# App Title & Pricing Date
+st.title("💸 Pokémon Arbitrage Dashboard")
+if 'Date' in df.columns:
+    last_date = pd.to_datetime(df['Date'].max()).strftime('%B %d, %Y')
+    st.caption(f"💡 Pricing based on PriceCharting.com as of **{last_date}**")
+
+st.markdown("---")
+
+# 🎯 Stacked Filter Inputs
+max_raw = st.number_input("💰 Max Raw Price", min_value=0.0, value=25.0, format="%.2f")
+max_psa = st.number_input("💎 Max PSA 10 Price", min_value=0.0, value=10000.0, format="%.2f")
+grading_fee = st.number_input("🛠 Grading Fee", min_value=0, max_value=100, value=20)
+min_profit = st.number_input("📈 Min Profit Margin", min_value=0.0, value=50.0, format="%.2f")
+
+# 📚 Set Filter
+all_sets = sorted(df['Set Name'].dropna().unique())
+selected_sets = st.multiselect("📚 Only show sets:", all_sets)
+
+# 🧪 Card Type Filter
+selected_types = st.multiselect(
+    "🧪 Only show cards with these in the name:",
+    ["V", "VMAX", "VSTAR", "EX", "Reverse Holo"]
+)
+
+# 🔍 Search by Card Name
+name_query = st.text_input("🔎 Search for a card (by name):")
+
+# Calculate derived values
+df['Total Cost'] = df['Raw Price'] + grading_fee
 df['Profit Margin'] = df['PSA 10 Price'] - df['Total Cost']
+df['Grading Fee'] = grading_fee
 
-# --- Streamlit UI ---
-st.title("🧠 Pokémon Card Arbitrage Finder")
+# Apply numeric filters
+filtered = df[
+    (df['Raw Price'] <= max_raw) &
+    (df['PSA 10 Price'] <= max_psa) &
+    (df['Profit Margin'] >= min_profit)
+]
 
-st.write("This tool helps you find profitable flips by comparing raw prices to PSA 10 resale values.")
+# Apply set filter
+if selected_sets:
+    filtered = filtered[filtered['Set Name'].isin(selected_sets)]
 
-min_profit = st.slider("Minimum Profit Margin ($)", 0, 150, 50)
+# Apply card type filter
+if selected_types:
+    filtered = filtered[
+        filtered['Card Name'].str.contains('|'.join(selected_types), case=False, na=False)
+    ]
 
-filtered = df[df['Profit Margin'] >= min_profit]
+# Apply name search
+if name_query:
+    filtered = filtered[
+        filtered['Card Name'].str.contains(name_query, case=False, na=False)
+    ]
 
+# Display section title
+st.markdown("### 🔍 FILTERED RESULTS")
+
+# Show results or warning
 if not filtered.empty:
-    st.success(f"Found {len(filtered)} profitable cards:")
-    st.dataframe(filtered)
+    st.success(f"Found {len(filtered)} cards matching filters:")
+    st.dataframe(filtered[['Set Name', 'Card Name', 'Raw Price', 'PSA 10 Price', 'Grading Fee', 'Total Cost', 'Profit Margin']])
 
+    # Excel download
     output = BytesIO()
     filtered.to_excel(output, index=False, engine='openpyxl')
-
     st.download_button(
-        label="📥 Download as Excel",
+        label="📥 Download Filtered List as Excel",
         data=output.getvalue(),
-        file_name="arbitrage_output.xlsx",
+        file_name="filtered_arbitrage_list.xlsx",
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     )
 else:
-    st.warning("No cards meet the profit margin criteria.")
+    st.warning("No cards meet the filter criteria.")
