@@ -3,7 +3,7 @@ import pandas as pd
 from io import BytesIO
 
 # Load and clean CSV
-df = pd.read_csv("pricecharting_scrape_2025-04-21.csv")
+df = pd.read_csv("latest_data.csv")
 df.columns = [col.strip() for col in df.columns]
 df['Set Name'] = df['Set Name'].str.replace("PRICES FOR POKEMON ", "", case=False)
 
