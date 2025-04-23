@@ -68,7 +68,10 @@ st.markdown("### 🔍 FILTERED RESULTS")
 # Show results or warning
 if not filtered.empty:
     st.success(f"Found {len(filtered)} cards matching filters:")
-    st.dataframe(filtered[['Set Name', 'Card Name', 'Raw Price', 'PSA 10 Price', 'Grading Fee', 'Total Cost', 'Profit Margin']])
+    st.dataframe(
+        filtered[['Set Name', 'Card Name', 'Raw Price', 'PSA 10 Price', 'Grading Fee', 'Total Cost', 'Profit Margin']],
+        use_container_width=True
+    )
 
     # Excel download
     output = BytesIO()
