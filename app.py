@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 from io import BytesIO
 
-# ✅ Enable full-width layout
+# ✅ Enable wide layout
 st.set_page_config(layout="wide")
 
 # Load and clean CSV
@@ -18,23 +18,25 @@ if 'Date' in df.columns:
 
 st.markdown("---")
 
-# 🎯 Stacked Filter Inputs
-max_raw = st.number_input("💰 Max Raw Price", min_value=0.0, value=25.0, format="%.2f")
-max_psa = st.number_input("💎 Max PSA 10 Price", min_value=0.0, value=10000.0, format="%.2f")
-grading_fee = st.number_input("🛠 Grading Fee", min_value=0, max_value=100, value=20)
-min_profit = st.number_input("📈 Min Profit Margin", min_value=0.0, value=50.0, format="%.2f")
+# 🔲 3-column filter layout
+col1, col2, col3 = st.columns(3)
 
-# 📚 Set Filter
-all_sets = sorted(df['Set Name'].dropna().unique())
-selected_sets = st.multiselect("📚 Only show sets:", all_sets)
+with col1:
+    max_raw = st.number_input("💰 Max Raw Price", min_value=0.0, value=25.0, format="%.2f")
+    min_profit = st.number_input("📈 Min Profit Margin", min_value=0.0, value=50.0, format="%.2f")
 
-# 🧪 Card Type Filter
-selected_types = st.multiselect(
-    "🧪 Only show cards with these in the name:",
-    ["V", "VMAX", "VSTAR", "EX", "Reverse Holo"]
-)
+with col2:
+    max_psa = st.number_input("💎 Max PSA 10 Price", min_value=0.0, value=10000.0, format="%.2f")
+    selected_sets = st.multiselect("📚 Only show sets:", sorted(df['Set Name'].dropna().unique()))
 
-# 🔍 Search by Card Name
+with col3:
+    grading_fee = st.number_input("🛠 Grading Fee", min_value=0, max_value=100, value=20)
+    selected_types = st.multiselect(
+        "🧪 Only show cards with these in the name:",
+        ["V", "VMAX", "VSTAR", "EX", "Reverse Holo"]
+    )
+
+# 🔍 Full-width search bar
 name_query = st.text_input("🔎 Search for a card (by name):")
 
 # Calculate derived values
@@ -42,33 +44,29 @@ df['Total Cost'] = df['Raw Price'] + grading_fee
 df['Profit Margin'] = df['PSA 10 Price'] - df['Total Cost']
 df['Grading Fee'] = grading_fee
 
-# Apply numeric filters
+# Apply filters
 filtered = df[
     (df['Raw Price'] <= max_raw) &
     (df['PSA 10 Price'] <= max_psa) &
     (df['Profit Margin'] >= min_profit)
 ]
 
-# Apply set filter
 if selected_sets:
     filtered = filtered[filtered['Set Name'].isin(selected_sets)]
 
-# Apply card type filter
 if selected_types:
     filtered = filtered[
         filtered['Card Name'].str.contains('|'.join(selected_types), case=False, na=False)
     ]
 
-# Apply name search
 if name_query:
     filtered = filtered[
         filtered['Card Name'].str.contains(name_query, case=False, na=False)
     ]
 
-# Display section title
+# Results section
 st.markdown("### 🔍 FILTERED RESULTS")
 
-# Show results or warning
 if not filtered.empty:
     st.success(f"Found {len(filtered)} cards matching filters:")
     st.dataframe(
