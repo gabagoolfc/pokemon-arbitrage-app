@@ -9,7 +9,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
 creds = ServiceAccountCredentials.from_json_keyfile_name("pokemon-arbitrage-app-03cf21e5f17f.json", scope)
 client = gspread.authorize(creds)
-sheet = client.open("Pokemon Arbitrage Emails").sheet1  # Sheet name must match your Sheet exactly
+sheet = client.open("Pokemon Arbitrage App Emails").sheet1  # Sheet name must match your Sheet exactly
 
 # ✅ Enable wide layout
 st.set_page_config(layout="wide")
