@@ -88,3 +88,17 @@ if not filtered.empty:
     )
 else:
     st.warning("No cards meet the filter criteria.")
+
+st.markdown("---")
+st.markdown("### 🚀 Stay in the loop!")
+
+email = st.text_input("Leave your email if you want early access to the full version (optional):")
+
+if st.button("Submit Email"):
+    if email:
+        with open("emails_collected.txt", "a") as f:
+            f.write(email + "\n")
+        st.success("✅ Thanks! You'll be the first to know when we launch.")
+    else:
+        st.error("Please enter a valid email address before submitting.")
+
