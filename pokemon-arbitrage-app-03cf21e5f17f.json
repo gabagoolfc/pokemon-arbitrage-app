@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "pokemon-arbitrage-app",
+  "private_key_id": "03cf21e5f17f8efc5835269cdd6098495c52536f",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCWw060qOjylcml\n+1U1ndl7lxcoBGU7lgXAHiUA4EdUgBpUDKJMUkEWAZSOyCS6ZN4Y0wNJRuAFPq6o\nJpK/AIdMbJSu+1xD/XXA42DIRN9YEie9z64xGY9cC6XPK4VL2Y+v6//sdFqsKvKo\nZ6RbJdhnM+nN7qPFRffUVhZHNPWn9CP4wz+29Q0hlPX+Q84hrilFtVieRu3tKVqd\nldkROUi3o88EblXC2ulQptz3SgF1Xw+nFqC03WhH5j/YNEPNpz+ABtSWFjDl+50R\ngOhkBo+u/voxGbnM5krhiHi8Polx/i/v1O+7I5c6pm02RkR+uJ1TwplJDCRC/l//\nlM3OfmZhAgMBAAECggEAAzoqTcP1W5cA/mZ1RhzrRkHfVyYT8Cz3kcubZWvHnxuQ\nZLbyBPH4TnMpdc57Ocm1tuCSeA+2NSqItNUBjGjjnItQ+fdru9FZw0+it1rBEKqv\n0th2nTqztsfRjHAdLfjZ4m1J+MrrU3bmY5w3WJOkcJ4b/cJjW1JSeic/GhZcQVR4\nREwzSALR8wVVIggPyqlmaFPzd/y+ZyKQtX+ZD79p8giUS39E0bXKGsyhCZDpqrkL\nd7xHGaxt97qjpdyv4ztzqsmZsj6qSfKP6adA++8zsQxxfOTO/UrSu8QftDMixGC2\nAfdoqrgdezD1ksxZBmVy3lNqcE1QrOjft2ZoB6L8YQKBgQDJhSjzQplkno7dnlYw\n4uvL8z+eD9Hj6sTT5kXJ2AValCrQXK2s0RWbL9k7SxpBFD6ipbVmDU4EjkzjLLKW\nHuvzWvEPXusTbIMSs8CuqWDnBqUwQFEvmQnylL8A3GIyHZ+ymsh5nHTk/dwfS4ns\n2WW+5AGoxoSRDcKCB2ZNA/DCUQKBgQC/hVUT6jNKj/loTdOwOmnBttnbgXwnNLH5\nDW8dvHUzbE0pbvdS+eq/dNEJibTaSjtr1ie1ba9YBGW4F+iNjrw6bFdaWszytRny\n6YCDmaEkZ0Vpnpy4QtAXUeZUKbQ/Je5rsLc3wYTwi38kSWmv8g/2re2lILINSxO+\nWZrXjcLPEQKBgQCe/Ccqg8hw0Yb04Q4u01gkN2xhTynQHk/avTkh3QOcSnjcmcGL\nLglVvZIsbTvxS/9+Yi2Srbx3a6zNLV5XgV21SHIWJlRfpqRiBN5m7co9ecipIJTs\ncFigwSlPjI8L6sMrLWIsT3sJjh4zsmzGJ11WFJwag0PjDHAAFcZnzEwNgQKBgHmB\n8w82eCInI9ob/mEBPlWLV76e8RDCquNStZuNFGJypKXT5A/9xQSA7Zp6hoYzsG1j\nKkA9/Y//AjYA3SbqVttOH0GQ+BRH99WYdVOI5aZ96pju64kvwmv5JwNgjh2+R/yE\n2kkCewBN0HVKKkZZce1UPcCU9MHgTv9mRAnbw6uxAoGBALduD4r6Y75aQPocrC9e\nd4/7qzR87RG8ngx/1J1I3aVYEbZYWMkPsL7a2b8xwXhOzLGUrzpmJ/bv2M6DRcbh\nGbRTTCMRMW7K136+WVjWPhLpEuXLtOIqsRM/jsFqK8oxfWGxjrp47luCbmI+huNt\n09pGy9OTM9XPWf1RtSXTQ3zW\n-----END PRIVATE KEY-----\n",
+  "client_email": "pokemon-arbitrage-service-acco@pokemon-arbitrage-app.iam.gserviceaccount.com",
+  "client_id": "104243294442576800584",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/pokemon-arbitrage-service-acco%40pokemon-arbitrage-app.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
