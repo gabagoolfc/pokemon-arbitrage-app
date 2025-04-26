@@ -1,15 +1,17 @@
 import streamlit as st
 import pandas as pd
 from io import BytesIO
+import json
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
-
 # === Connect to Google Sheets ===
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-creds = ServiceAccountCredentials.from_json_keyfile_name("pokemon-arbitrage-app-03cf21e5f17f.json", scope)
-client = gspread.authorize(creds)
+gcp_service_account = json.loads(st.secrets["gcp_service_account"])
+credentials = ServiceAccountCredentials.from_json_keyfile_dict(gcp_service_account, scope)
+client = gspread.authorize(credentials)
 sheet = client.open("Pokemon Arbitrage App Emails").sheet1
+
   # Sheet name must match your Sheet exactly
 
 # ✅ Enable wide layout
