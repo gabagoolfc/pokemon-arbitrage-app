@@ -7,8 +7,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 
 # === Connect to Google Sheets ===
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-gcp_service_account = json.loads(st.secrets["gcp_service_account"])
-credentials = ServiceAccountCredentials.from_json_keyfile_dict(gcp_service_account, scope)
+credentials = ServiceAccountCredentials.from_json_keyfile_dict(st.secrets["gcp_service_account"], scope)
 client = gspread.authorize(credentials)
 sheet = client.open("Pokemon Arbitrage App Emails").sheet1
 
