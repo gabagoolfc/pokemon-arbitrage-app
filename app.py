@@ -1,6 +1,15 @@
 import streamlit as st
 import pandas as pd
 from io import BytesIO
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
+
+
+# === Connect to Google Sheets ===
+scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+creds = ServiceAccountCredentials.from_json_keyfile_name("pokemon-arbitrage-app-03cf21e5f17f.json", scope)
+client = gspread.authorize(creds)
+sheet = client.open("Pokemon Arbitrage Emails").sheet1  # Sheet name must match your Sheet exactly
 
 # ✅ Enable wide layout
 st.set_page_config(layout="wide")
@@ -96,9 +105,9 @@ email = st.text_input("Leave your email if you want early access to the full ver
 
 if st.button("Submit Email"):
     if email:
-        with open("emails_collected.txt", "a") as f:
-            f.write(email + "\n")
+        sheet.append_row([email])
         st.success("✅ Thanks! You'll be the first to know when we launch.")
     else:
         st.error("Please enter a valid email address before submitting.")
+
 
