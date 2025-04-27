@@ -33,7 +33,7 @@ with col2:
     selected_sets = st.multiselect("📚 Only show sets:", sorted(df['Set Name'].dropna().unique()))
 
 with col3:
-    grading_fee = st.number_input("🖼 Grading Fee", min_value=0, max_value=100, value=20)
+    grading_fee = st.number_input("🔼 Grading Fee", min_value=0, max_value=100, value=20)
     selected_types = st.multiselect(
         "🧪 Only show cards with these in the name:",
         ["V", "VMAX", "VSTAR", "EX", "Reverse Holo"]
@@ -89,16 +89,8 @@ if not filtered.empty:
 else:
     st.warning("No cards meet the filter criteria.")
 
+# Add Early Access Sign Up Button
 st.markdown("---")
 st.markdown("### 🚀 Stay in the loop!")
-
-email = st.text_input("Leave your email if you want early access to the full version (optional):")
-
-if st.button("Submit Email"):
-    if email:
-        with open("emails_collected.txt", "a") as f:
-            f.write(email + "\n")
-        st.success("✅ Thanks! You'll be the first to know when we launch.")
-    else:
-        st.error("Please enter a valid email address before submitting.")
-
+st.markdown("Get early access to our Pokémon Grading Arbitrage Tool before anyone else. Sign up below!")
+st.link_button("🔗 Join the Early Access List", "https://airtable.com/appMO4NwnP36T8j2t/pag60J4ig8rbjHCNo/form")
