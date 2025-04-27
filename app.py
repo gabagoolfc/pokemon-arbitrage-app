@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from io import BytesIO
+import streamlit.components.v1 as components
 
 # ✅ Enable wide layout
 st.set_page_config(layout="wide")
@@ -89,8 +90,12 @@ if not filtered.empty:
 else:
     st.warning("No cards meet the filter criteria.")
 
-# Add Early Access Sign Up Button
+# 📋 Embed Airtable Form at the Bottom
 st.markdown("---")
 st.markdown("### 🚀 Stay in the loop!")
 st.markdown("Get early access to our Pokémon Grading Arbitrage Tool before anyone else. Sign up below!")
-st.link_button("🔗 Join the Early Access List", "https://airtable.com/appMO4NwnP36T8j2t/pag60J4ig8rbjHCNo/form")
+
+components.iframe(
+    "https://airtable.com/embed/appMO4NwnP36T8j2t/pag60J4ig8rbjHCNo?backgroundColor=blue",
+    height=600
+)
